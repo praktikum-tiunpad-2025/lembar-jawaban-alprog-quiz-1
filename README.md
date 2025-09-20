@@ -1,6 +1,6 @@
 # 📝 Panduan Penggunaan Website Quiz 1
 
-Panduan ini menjelaskan cara menggunakan **Website untuk Quiz** saat mengerjakan soal-soal yang diberikan.
+Panduan ini menjelaskan cara menggunakan **Website Quiz** saat mengerjakan soal-soal yang diberikan.
 
 ---
 
@@ -40,7 +40,6 @@ Keterangan :
 
 ---
 
----
 
 ## 5. Download Hasil Pengerjaan
 - **Download sebagai `.cpp`** → Untuk backup pribadi.
