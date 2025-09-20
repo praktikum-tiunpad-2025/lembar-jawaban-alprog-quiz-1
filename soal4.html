@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>Quiz 1 Soal 4 Alprog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/theme/material-darker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/clike/clike.min.js"></script>
+
+  <style>
+    :root { --bg:#1e1e1e; --card:#252526; --muted:#9aa0a6; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:system-ui,Segoe UI,Arial,sans-serif; }
+    header { padding:16px 20px; border-bottom:1px solid #333; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    header h1 { font-size:18px; margin:0; font-weight:600; }
+    .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    input, button { background:#111; color:#fff; border:1px solid #444; border-radius:10px; padding:10px 12px; font-size:14px; }
+    input::placeholder { color:#777; }
+    button { background:#3b82f6; border-color:#3b82f6; cursor:pointer; transition:all 0.2s; }
+    button:hover { background:#2563eb; }
+    button:disabled { background:#374151; border-color:#374151; cursor:not-allowed; opacity:0.5; }
+    button.secondary { background:#2d2d30; border-color:#555; }
+    button.secondary:hover { background:#3d3d40; }
+    button.success { background:#097f58; border-color:#10b981; }
+    button.success:hover { background:#059669; }
+    main { display:grid; grid-template-columns: 1fr 300px; gap:16px; padding:16px; }
+    @media (max-width: 960px){ main{ grid-template-columns:1fr; } }
+    .card { background:var(--card); border:1px solid #333; border-radius:14px; overflow:hidden; }
+    .card h2 { margin:0; font-size:14px; font-weight:700; padding:12px 14px; border-bottom:1px solid #333; color:#e3e3e3;}
+    .card .body { padding:12px; display:grid; gap:10px; }
+    .hint { color:var(--muted); font-size:12px; line-height: 1.4; }
+    #editorWrap { height: 80vh; min-height: 400px; }
+    .CodeMirror { height:100%; font-size:14px; border-radius:0; }
+    .danger { color:#ffa7a7; }
+    .success { color:#a7ffcf; }
+    .warning { color:#ffd700; }
+    
+    .autosave-status {
+      background: #2d2d30;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #9aa0a6;
+      margin-left: auto;
+    }
+    
+    .autosave-status.saving { color: #ffd700; }
+    .autosave-status.saved { color: #a7ffcf; }
+
+    .download-section {
+      border-top: 1px solid #333;
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    .download-section h3 {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      color: #e3e3e3;
+      font-weight: 600;
+    }
+
+    .warning-box {
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+    }
+
+    .warning-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffd700;
+      font-size: 12px;
+    }
+
+    .warning-box p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📝 Quiz 1 Algoritma Pemrograman</h1>
+    <div class="row">
+      <div id="autosaveStatus" class="autosave-status">Ready</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>💻 Soal 4</h2>
+      
+      <div id="editorWrap">
+        <textarea id="editor">/*
+Nama Lengkap :
+NPM :
+Kelas :
+Hari/Tanggal :
+Keterangan :
+*/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    return 0;
+}
+        </textarea>
+      </div>
+    </section>
+
+    <aside class="card">
+      <h2>📋 File Management</h2>
+      <div class="body">
+
+        <div class="download-section">
+          <h3>📦 Download Options</h3>
+          <button id="btnEncrypt" class="success">📄 Download as .json</button>
+          <button id="btnCPP" class="secondary">💾 Download as .cpp</button>
+          <div id="downloadStatus" class="hint" style="margin-top: 8px;"></div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #333; margin: 16px 0;">
+        
+        <h3 style="margin: 0 0 8px 0; font-size: 12px; color: #e3e3e3;">Quick Actions</h3>
+        <button id="btnSampleCode" class="secondary">📝 Reset Template</button>
+        
+        <div class="hint">
+          💡 <strong>Auto-save:</strong> Kode Anda otomatis disimpan dan akan tetap ada saat refresh halaman.
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    function _0x33c6(){const _0x3e52ea=['setItem','metaKey','textContent','ctrlKey','.json','copy','text/x-c++src','now','paste','Loaded','Editor\x20belum\x20siap','from','btnSampleCode','Saving...','Attempting\x20to\x20encrypt:','...','getValue','autosave-status','Failed\x20to\x20save\x20to\x20localStorage:','Tab\x20switched\x20','key','revokeObjectURL','change','userSelect','/*\x0aNama\x20Lengkap\x20:\x0aNPM\x20:\x0aKelas\x20:\x0aHari/Tanggal\x20:\x0aKeterangan\x20:\x0a*/\x0a\x0a#include\x20<iostream>\x0ausing\x20namespace\x20std;\x0a\x0aint\x20main()\x20{\x0a\x0a\x20\x20\x20\x20return\x200;\x0a}','AES-GCM','shiftKey','cut','SHA-256','40AUlcrL','href','6RlgNQV','dragenter','createElement','toLowerCase','preventDefault','setValue','text/plain','code','getInputField','subtle','encrypt','1454840NDPAKb','Reset\x20ke\x20template\x20awal?\x20Kode\x20yang\x20ada\x20sekarang\x20akan\x20hilang.','log','<span\x20class=\x22success\x22>✅\x20File\x20JSON\x20berhasil\x20diunduh\x20dan\x20terenkripsi!</span>','301341LWcVsN','addEventListener','insert','<span\x20class=\x22danger\x22>❌\x20Gagal\x20membuat\x20file:\x20','encode','message','editor','Hayooo\x20ngapain\x20kamu\x20>:(\x20Jangan\x20buka\x20tab\x20lain','hidden','saving','saved','forEach','Error','soal4_quiz1','<span\x20class=\x22success\x22>✅\x20File\x20CPP\x20berhasil\x20diunduh.</span>','fromCharCode','getElementById','size','downloadStatus','autosaveStatus','style','getWrapperElement','deriveKey','error','getRandomValues','PBKDF2','stringify','indentSelection','appendChild','16531680qapJIi','10tMMSsL','dragover','so1qu1','Failed\x20to\x20load\x20from\x20localStorage:','\x20time(s)','drop','click','10YfnmEf','decrypt','importKey','Saved','classList','5127085sXRAME','getItem','909208JiIYrL','add','end','Text\x20length:','btnCPP','body','\x20\x20\x20\x20','<span\x20class=\x22success\x22>✅\x20Template\x20berhasil\x20di-reset.</span>','somethingSelected','.cpp','parse','1949706TiiMLk','Encryption\x20successful,\x20blob\x20size:','6671Ybuqpj','substring','apply','charCodeAt','<span\x20class=\x22warning\x22>⚠️\x20Kode\x20terlalu\x20pendek.</span>','keydown','innerHTML','download','Encryption\x20error:'];_0x33c6=function(){return _0x3e52ea;};return _0x33c6();}const _0x3358f7=_0xa99d;(function(_0x60e85,_0xe255bb){const _0x3167c8=_0xa99d,_0x422eb5=_0x60e85();while(!![]){try{const _0x4386b8=-parseInt(_0x3167c8(0x102))/0x1+-parseInt(_0x3167c8(0xf4))/0x2*(parseInt(_0x3167c8(0xd6))/0x3)+-parseInt(_0x3167c8(0xd2))/0x4+-parseInt(_0x3167c8(0x100))/0x5*(-parseInt(_0x3167c8(0x137))/0x6)+-parseInt(_0x3167c8(0x10f))/0x7*(parseInt(_0x3167c8(0x135))/0x8)+parseInt(_0x3167c8(0x10d))/0x9*(-parseInt(_0x3167c8(0xfb))/0xa)+parseInt(_0x3167c8(0xf3))/0xb;if(_0x4386b8===_0xe255bb)break;else _0x422eb5['push'](_0x422eb5['shift']());}catch(_0x4d45d1){_0x422eb5['push'](_0x422eb5['shift']());}}}(_0x33c6,0x81d21));let switchCount=0x0;document['addEventListener']('visibilitychange',()=>{const _0x52dbc5=_0xa99d;document[_0x52dbc5(0xde)]&&(switchCount++,console[_0x52dbc5(0xd4)](_0x52dbc5(0x12b)+switchCount+_0x52dbc5(0xf8)),switchCount>0x1&&(alert(_0x52dbc5(0xdd)),switchCount=0x0));});const b64={'enc':_0x49df4a=>btoa(String['fromCharCode']['apply'](null,_0x49df4a)),'dec':_0x232622=>Uint8Array[_0x3358f7(0x123)](atob(_0x232622),_0x3ea3d7=>_0x3ea3d7[_0x3358f7(0x112)](0x0))},te=new TextEncoder(),td=new TextDecoder(),AUTOSAVE_KEY='cpp_editor_autosave',AUTOSAVE_DELAY=0x3e8;let autosaveTimeout,editor;function updateAutosaveStatus(_0x22e645){const _0x326c7e=_0x3358f7,_0x4bcfa7=document['getElementById'](_0x326c7e(0xe9));_0x4bcfa7[_0x326c7e(0x11a)]=_0x22e645,_0x4bcfa7['className']=_0x326c7e(0x129);if(_0x22e645===_0x326c7e(0x125))_0x4bcfa7[_0x326c7e(0xff)][_0x326c7e(0x103)](_0x326c7e(0xdf));else _0x22e645==='Saved'&&(_0x4bcfa7[_0x326c7e(0xff)][_0x326c7e(0x103)](_0x326c7e(0xe0)),setTimeout(()=>{const _0x3c711d=_0x326c7e;_0x4bcfa7[_0x3c711d(0x11a)]===_0x3c711d(0xfe)&&(_0x4bcfa7[_0x3c711d(0x11a)]='Ready',_0x4bcfa7['className']=_0x3c711d(0x129));},0x7d0));}function updateDebugInfo(){const _0x544fa5=_0x3358f7;if(!editor)return;const _0x224e24=editor[_0x544fa5(0x128)]();}function saveToLocalStorage(){const _0x3626b6=_0x3358f7;try{if(!editor)throw new Error(_0x3626b6(0x122));const _0x1c3183=editor[_0x3626b6(0x128)](),_0x51f405={'code':_0x1c3183,'timestamp':Date[_0x3626b6(0x11f)](),'fileName':_0x3626b6(0xe3)};localStorage[_0x3626b6(0x118)](AUTOSAVE_KEY,JSON[_0x3626b6(0xf0)](_0x51f405)),updateAutosaveStatus(_0x3626b6(0xfe));}catch(_0x5bb39a){console[_0x3626b6(0xed)](_0x3626b6(0x12a),_0x5bb39a),updateAutosaveStatus(_0x3626b6(0xe2));}}function loadFromLocalStorage(){const _0x15c325=_0x3358f7;try{const _0x50e262=localStorage[_0x15c325(0x101)](AUTOSAVE_KEY);if(_0x50e262){const _0x4a6f59=JSON[_0x15c325(0x10c)](_0x50e262);return _0x4a6f59;}}catch(_0x43e96b){console[_0x15c325(0xed)](_0x15c325(0xf7),_0x43e96b);}return null;}function scheduleAutosave(){updateAutosaveStatus('Saving...'),clearTimeout(autosaveTimeout),autosaveTimeout=setTimeout(saveToLocalStorage,AUTOSAVE_DELAY);}editor=CodeMirror['fromTextArea'](document[_0x3358f7(0xe6)](_0x3358f7(0xdc)),{'lineNumbers':!![],'mode':_0x3358f7(0x11e),'theme':'material-darker','indentUnit':0x4,'tabSize':0x4,'indentWithTabs':![],'extraKeys':{'Tab':_0x3e4ac4=>_0x3e4ac4[_0x3358f7(0x10a)]()?_0x3e4ac4[_0x3358f7(0xf1)](_0x3358f7(0x103)):_0x3e4ac4['replaceSelection'](_0x3358f7(0x108),_0x3358f7(0x104)),'Shift-Tab':_0x30fe1b=>_0x30fe1b[_0x3358f7(0xf1)]('subtract')}});const savedData=loadFromLocalStorage();savedData&&savedData['code']&&(editor[_0x3358f7(0x13c)](savedData[_0x3358f7(0xce)]),updateAutosaveStatus(_0x3358f7(0x121)));editor['on'](_0x3358f7(0x12e),()=>{scheduleAutosave();}),setTimeout(updateDebugInfo,0x1f4);const cmContent=editor[_0x3358f7(0xcf)]();[_0x3358f7(0x11d),_0x3358f7(0x133),_0x3358f7(0x120)][_0x3358f7(0xe1)](_0x136161=>cmContent[_0x3358f7(0xd7)](_0x136161,_0x1a7c35=>_0x1a7c35[_0x3358f7(0x13b)]())),cmContent[_0x3358f7(0xd7)](_0x3358f7(0x114),_0x38f887=>{const _0x10365b=_0x3358f7,_0x2aa3bc=_0x38f887[_0x10365b(0x12c)][_0x10365b(0x13a)](),_0x432f3f=_0x38f887[_0x10365b(0x11b)]||_0x38f887[_0x10365b(0x119)];if(_0x432f3f&&(_0x2aa3bc==='c'||_0x2aa3bc==='x'||_0x2aa3bc==='v')||_0x38f887[_0x10365b(0x132)]&&_0x2aa3bc===_0x10365b(0xd8))_0x38f887[_0x10365b(0x13b)]();});const wrap=editor[_0x3358f7(0xeb)]();wrap[_0x3358f7(0xd7)]('contextmenu',_0xb419d=>_0xb419d['preventDefault']()),[_0x3358f7(0xf9),_0x3358f7(0xf5),_0x3358f7(0x138)][_0x3358f7(0xe1)](_0x209864=>wrap['addEventListener'](_0x209864,_0xac4bf=>_0xac4bf[_0x3358f7(0x13b)]())),wrap[_0x3358f7(0xea)][_0x3358f7(0x12f)]='none';function uint8ToBase64(_0x33b499){const _0x3352dc=_0x3358f7;let _0x5c8de8=0x8000,_0x422170=0x0,_0xdfe33=_0x33b499['length'],_0x13795d='',_0x53cee0;while(_0x422170<_0xdfe33){_0x53cee0=_0x33b499['subarray'](_0x422170,Math['min'](_0x422170+_0x5c8de8,_0xdfe33)),_0x13795d+=String[_0x3352dc(0xe5)][_0x3352dc(0x111)](null,_0x53cee0),_0x422170+=_0x5c8de8;}return btoa(_0x13795d);}async function deriveKey(_0x156e6b,_0x2ae150,_0x5d83a5=0x30d40){const _0xa244b6=_0x3358f7,_0x208698=await crypto['subtle'][_0xa244b6(0xfd)]('raw',new TextEncoder()[_0xa244b6(0xda)](_0x156e6b),{'name':_0xa244b6(0xef)},![],['deriveKey']);return crypto[_0xa244b6(0xd0)][_0xa244b6(0xec)]({'name':_0xa244b6(0xef),'salt':_0x2ae150,'iterations':_0x5d83a5,'hash':_0xa244b6(0x134)},_0x208698,{'name':_0xa244b6(0x131),'length':0x100},![],[_0xa244b6(0xd1),_0xa244b6(0xfc)]);}async function encryptString(_0x2991bc,_0x3ee985){const _0x21120c=_0x3358f7,_0x256a9a=crypto['getRandomValues'](new Uint8Array(0x10)),_0x204199=crypto[_0x21120c(0xee)](new Uint8Array(0xc)),_0x4d6107=await deriveKey(_0x3ee985,_0x256a9a),_0x5c5b17=new TextEncoder(),_0x5f345e=await crypto[_0x21120c(0xd0)][_0x21120c(0xd1)]({'name':_0x21120c(0x131),'iv':_0x204199},_0x4d6107,_0x5c5b17[_0x21120c(0xda)](_0x2991bc)),_0xe6d352={'v':0x1,'alg':_0x21120c(0x131),'kdf':{'name':_0x21120c(0xef),'hash':_0x21120c(0x134),'iterations':0x30d40},'salt':uint8ToBase64(_0x256a9a),'iv':uint8ToBase64(_0x204199),'data':uint8ToBase64(new Uint8Array(_0x5f345e))};return new Blob([JSON[_0x21120c(0xf0)](_0xe6d352)],{'type':'application/json'});}function downloadBlob(_0x477737,_0x57f5d4){const _0x1e657b=_0x3358f7,_0x80ad7b=document[_0x1e657b(0x139)]('a');_0x80ad7b[_0x1e657b(0x136)]=URL['createObjectURL'](_0x477737),_0x80ad7b[_0x1e657b(0x116)]=_0x57f5d4,document[_0x1e657b(0x107)][_0x1e657b(0xf2)](_0x80ad7b),_0x80ad7b[_0x1e657b(0xfa)](),setTimeout(()=>{const _0x4f697d=_0x1e657b;URL[_0x4f697d(0x12d)](_0x80ad7b[_0x4f697d(0x136)]),_0x80ad7b['remove']();},0x0);}const downloadStatus=document[_0x3358f7(0xe6)](_0x3358f7(0xe8));function _0xa99d(_0x2e1ac4,_0x46ca7d){const _0x33c692=_0x33c6();return _0xa99d=function(_0xa99dbc,_0x462939){_0xa99dbc=_0xa99dbc-0xce;let _0x488554=_0x33c692[_0xa99dbc];return _0x488554;},_0xa99d(_0x2e1ac4,_0x46ca7d);}document[_0x3358f7(0xe6)]('btnEncrypt')['addEventListener'](_0x3358f7(0xfa),async()=>{const _0x44bafa=_0x3358f7;downloadStatus[_0x44bafa(0x11a)]='';const _0x45c73='soal4_quiz1',_0x55c569=_0x44bafa(0xf6),_0x145c69=editor[_0x44bafa(0x128)]();console[_0x44bafa(0xd4)](_0x44bafa(0x126),_0x145c69[_0x44bafa(0x110)](0x0,0x64)+_0x44bafa(0x127)),console['log'](_0x44bafa(0x105),_0x145c69['length']);try{const _0x115f71=await encryptString(_0x145c69,_0x55c569);console[_0x44bafa(0xd4)](_0x44bafa(0x10e),_0x115f71[_0x44bafa(0xe7)]),downloadBlob(_0x115f71,_0x45c73+_0x44bafa(0x11c)),downloadStatus[_0x44bafa(0x115)]=_0x44bafa(0xd5);}catch(_0x4661aa){console[_0x44bafa(0xed)](_0x44bafa(0x117),_0x4661aa),downloadStatus[_0x44bafa(0x115)]=_0x44bafa(0xd9)+_0x4661aa[_0x44bafa(0xdb)]+'</span>';}}),document[_0x3358f7(0xe6)](_0x3358f7(0x106))[_0x3358f7(0xd7)]('click',()=>{const _0x30a274=_0x3358f7;downloadStatus[_0x30a274(0x11a)]='';const _0x263e66=editor[_0x30a274(0x128)](),_0x3921a6='soal4_quiz1';if(_0x263e66['length']<0xa){downloadStatus[_0x30a274(0x115)]=_0x30a274(0x113);return;}const _0x3ed498=new Blob([_0x263e66],{'type':_0x30a274(0x13d)});downloadBlob(_0x3ed498,_0x3921a6+_0x30a274(0x10b)),downloadStatus['innerHTML']=_0x30a274(0xe4);}),document[_0x3358f7(0xe6)](_0x3358f7(0x124))[_0x3358f7(0xd7)](_0x3358f7(0xfa),()=>{const _0x461461=_0x3358f7;if(confirm(_0x461461(0xd3))){const _0x3ec7e9=_0x461461(0x130);editor[_0x461461(0x13c)](_0x3ec7e9),scheduleAutosave(),downloadStatus[_0x461461(0x115)]=_0x461461(0x109);}});
+  </script>
+</body>
+</html>
